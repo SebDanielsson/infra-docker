@@ -31,7 +31,7 @@ jobs:
           SSH_KEY: ${{ secrets.KEY }}
           SSH_HOST: ${{ secrets.HOST }}
       - name: Git pull
-        run: cd ${{ secrets.PATH }} && git fetch && git checkout main && git pull
+        run: ssh staging "cd ${{ secrets.PATH }} && git fetch && git checkout main && git pull"
       #- name: 'SSH'
       #  uses: appleboy/ssh-action@v0.1.4
       #  with:
