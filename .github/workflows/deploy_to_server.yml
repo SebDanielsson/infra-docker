@@ -40,8 +40,8 @@ jobs:
       - name: Pull latest Docker images
         id: docker-pull
         if: steps.ssh.outcome == 'success'
-        run: ssh staging "for d in /compose/compose/enabled/*/ ; do (cd "$d" && docker compose pull); done"
+        run: ssh staging "for d in /compose/compose/enabled/*/ ; do (cd '$d' && docker compose pull); done"
       - name: Start enabled services
         id: docker-start
         if: steps.ssh.outcome == 'success'
-        run: ssh staging "for d in /compose/compose/enabled/*/ ; do (cd "$d" && docker compose up -d); done"
+        run: ssh staging "for d in /compose/compose/enabled/*/ ; do (cd '$d' && docker compose up -d); done"
