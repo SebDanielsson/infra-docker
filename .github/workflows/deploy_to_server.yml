@@ -27,9 +27,9 @@ jobs:
             StrictHostKeyChecking no
           END
         env:
-          SSH_KEY: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.STAGING_SSH_HOSTNAME }}
-          SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOSTNAME }}
+          SSH_USER: ${{ secrets.SSH_USER }}
       - name: Git pull
         run: ssh staging "cd ${{ secrets.COMPOSE_PATH }} && git fetch && git checkout main && git pull"
 # Need to add Docker Compose up to activate containers.
