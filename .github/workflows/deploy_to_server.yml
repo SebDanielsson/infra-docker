@@ -1,0 +1,24 @@
+name: 'Deploy to server'
+on:
+  push:
+    branches:    
+      - 'main'
+jobs:
+  build:
+    name: 'Deploy to server'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.0.2
+      - name: 'Tailscale'
+        uses: tailscale/github-action@v1
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }} # Ephemeral key
+      - name: 'SSH'
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: cd ${{ secrets.PATH }} && git fetch && git checkout main && git pull
+# Need to add Docker Compose up to activate containers.
