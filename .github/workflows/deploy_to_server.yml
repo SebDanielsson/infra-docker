@@ -34,7 +34,14 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOSTNAME }}
           SSH_USER: ${{ secrets.SSH_USER }}
       - name: Git pull
-        id: pull
+        id: git-pull
         if: steps.ssh.outcome == 'success'
         run: ssh staging "cd ${{ secrets.COMPOSE_PATH }} && git fetch && git checkout main && git pull"
-# Need to add Docker Compose up to activate containers.
+      - name: Pull latest Docker images
+        id: docker-pull
+        if: steps.ssh.outcome == 'success'
+        run: ssh staging "for d in /compose/enabled/*/ ; do (cd "$d" && docker compose pull); done"
+      - name: Start enabled services
+        id: docker-start
+        if: steps.ssh.outcome == 'success'
+        run: ssh staging "for d in /compose/enabled/*/ ; do (cd "$d" && docker compose up -d); done"
