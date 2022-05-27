@@ -1,0 +1,15 @@
+services:
+  demo:
+    container_name: demo
+    image: nginx:1.22.0-alpine
+    ports:
+      - "8088:80"
+    volumes:
+     - ./data:/usr/share/nginx/html:ro
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.demo.rule=Host(`demo.hogwarts.zone`)
+      - traefik.http.routers.demo.tls.certresolver=letsencrypt
+      - traefik.http.routers.demo.middlewares=secHeaders@file
+      - traefik.http.services.demo.loadbalancer.server.port=80
