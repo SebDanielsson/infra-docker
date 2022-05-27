@@ -27,8 +27,8 @@ jobs:
             StrictHostKeyChecking no
           END
         env:
-          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
-          SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          SSH_KEY: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.STAGING_SSH_HOSTNAME }}
           SSH_USER: ${{ secrets.STAGING_SSH_USER }}
       - name: Git pull
         run: ssh staging "cd ${{ secrets.COMPOSE_PATH }} && git fetch && git checkout main && git pull"
