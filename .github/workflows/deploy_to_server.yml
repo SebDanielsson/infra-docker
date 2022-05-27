@@ -10,11 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
       - name: 'Tailscale'
+        id: tailscale
         uses: tailscale/github-action@v1
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }} # Ephemeral key
           version: 1.24.2
       - name: 'SSH'
+        id: ssh
+        if: steps.tailscale.outcome == 'success'
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/staging.key
@@ -31,5 +34,7 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOSTNAME }}
           SSH_USER: ${{ secrets.SSH_USER }}
       - name: Git pull
+        id: pull
+        if: steps.ssh.outcome == 'success'
         run: ssh staging "cd ${{ secrets.COMPOSE_PATH }} && git fetch && git checkout main && git pull"
 # Need to add Docker Compose up to activate containers.
