@@ -36,7 +36,7 @@ jobs:
       - name: Git pull
         id: git-pull
         if: steps.ssh.outcome == 'success'
-        run: ssh staging "cd ${{ secrets.COMPOSE_PATH }} && git fetch && git checkout main && git pull"
+        run: ssh staging "cd /compose && git fetch && git checkout main && git pull"
       - name: Pull latest Docker images
         id: docker-pull
         if: steps.ssh.outcome == 'success'
