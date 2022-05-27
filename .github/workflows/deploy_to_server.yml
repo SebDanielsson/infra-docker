@@ -6,13 +6,14 @@ on:
 jobs:
   build:
     name: 'Deploy to server'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3.0.2
       - name: 'Tailscale'
         uses: tailscale/github-action@v1
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }} # Ephemeral key
+          version: 1.24.2
       - name: 'SSH'
         uses: appleboy/ssh-action@v0.1.4
         with:
