@@ -4,8 +4,8 @@ on:
     branches:    
       - 'main'
 jobs:
-  build:
-    name: 'Deploy to server'
+  deploy:
+    name: 'Deploy to prod'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3.0.2
@@ -17,27 +17,15 @@ jobs:
       - name: 'SSH'
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/staging.key
           chmod 600 ~/.ssh/staging.key
           cat >>~/.ssh/config <<END
           Host staging
-            HostName $SSH_HOST
-            User $SSH_USER
+            HostName ${{ secrets.SSH_HOSTNAME }}
+            User ${{ secrets.SSH_USER }}
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking no
           END
-        env:
-          SSH_USER: ${{ secrets.USERNAME }}
-          SSH_KEY: ${{ secrets.KEY }}
-          SSH_HOST: ${{ secrets.HOST }}
       - name: Git pull
-        run: ssh staging "cd ${{ secrets.PATH }} && git fetch && git checkout main && git pull"
-      #- name: 'SSH'
-      #  uses: appleboy/ssh-action@v0.1.4
-      #  with:
-      #    host: ${{ secrets.HOST }}
-      #    username: ${{ secrets.USERNAME }}
-      #    key: ${{ secrets.KEY }}
-      #    port: ${{ secrets.PORT }}
-      #    script: cd ${{ secrets.PATH }} && git fetch && git checkout main && git pull
+        run: ssh staging "cd ${{ secrets.COMPOSE_PATH }} && git fetch && git checkout main && git pull"
 # Need to add Docker Compose up to activate containers.
