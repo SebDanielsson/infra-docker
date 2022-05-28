@@ -1,0 +1,11 @@
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:2.13.1-alpine
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+    restart: always
+volumes:
+  portainer:
+    name: portainer
