@@ -1,11 +1,10 @@
 services:
-  demo:
-    container_name: demo
+  nginx:
     image: nginx:1.22.0-alpine
     ports:
       - "8088:80"
     volumes:
-     - /docker/data/demo:/usr/share/nginx/html:ro
+     - /docker/data/demo/nginx:/usr/share/nginx/html:ro
     restart: always
     labels:
       - traefik.enable=true
