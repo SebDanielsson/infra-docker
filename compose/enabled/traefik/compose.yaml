@@ -4,6 +4,7 @@ services:
     command:
       - --api
       - --api.dashboard=true
+      - --api.insecure=true
       - --pilot.dashboard=false
       - --log.level=WARN
       - --global.checknewversion=false
