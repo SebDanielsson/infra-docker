@@ -1,0 +1,11 @@
+services:
+  traefik-cloudflare-companion:
+    image: tiredofit/traefik-cloudflare-companion:6.8.5
+    network_mode: "host"
+    environment:
+      - TIMEZONE=Europe/Stockholm
+    env_file:
+      - /docker/data/secrets/traefik-cloudflare-companion/traefik-cloudflare-companion.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
