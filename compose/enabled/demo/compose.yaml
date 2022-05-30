@@ -5,7 +5,7 @@ services:
     ports:
       - "8088:80"
     volumes:
-     - ./data:/usr/share/nginx/html:ro
+     - /docker/data/demo:/usr/share/nginx/html:ro
     restart: always
     labels:
       - traefik.enable=true
