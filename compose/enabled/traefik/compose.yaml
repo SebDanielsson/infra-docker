@@ -22,7 +22,7 @@ services:
       - --entrypoints.http.http.redirections.entryPoint.scheme=https
       - --entrypoints.https.address=:443
       - --experimental.http3=true
-      - --entrypoints.http3.http3.advertisedport=443
+      - --entrypoints.https.http3.advertisedport=443
       - --certificatesresolvers.letsencrypt.acme.email=sebastian.danielsson@protonmail.com
       - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
       - --certificatesresolvers.letsencrypt.acme.dnschallenge=true
