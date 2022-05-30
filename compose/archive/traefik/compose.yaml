@@ -1,0 +1,39 @@
+services:
+  traefik:
+    image: traefik:v2.7.0
+    command:
+      - --api
+      - --api.dashboard=true
+      - --pilot.dashboard=false
+      - --log.level=WARN
+      - --global.checknewversion=false
+      - --global.sendanonymoususage=false
+      - --metrics.prometheus=false
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.entryPoint=metrics
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.file.directory=/etc/traefik
+      - --providers.file.watch=true
+      - --entryPoints.metrics.address=:8082
+      - --entrypoints.http.address=:80
+      - --entrypoints.http.http.redirections.entryPoint.to=https
+      - --entrypoints.http.http.redirections.entryPoint.scheme=https
+      - --entrypoints.https.address=:443
+      - --experimental.http3=true
+      - --entrypoints.http3.http3
+      - --certificatesresolvers.letsencrypt.acme.email=sebastian.danielsson@protonmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+    network_mode: "host"
+    env_file:
+      - /docker/secrets/traefik/traefik.env
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/data/traefik/traefik:/etc/traefik
+    restart: always
