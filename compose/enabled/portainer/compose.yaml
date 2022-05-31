@@ -13,6 +13,7 @@ services:
     ports:
       - "9000:9000"
       - "8000:8000"
+      - "9443:9443"
 volumes:
   portainer:
     name: portainer
