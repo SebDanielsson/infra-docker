@@ -3,6 +3,8 @@ services:
     container_name: portainer
     image: portainer/portainer-ce:2.13.1-alpine
     volumes:
+      - /etc/pki/tls/certs/linode1.risk-bee.ts.net.crt:/certs/linode1.risk-bee.ts.net.crt
+      - /etc/pki/tls/certs/linode1.risk-bee.ts.net.key:/certs/linode1.risk-bee.ts.net.key
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer:/data
     restart: always
