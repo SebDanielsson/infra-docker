@@ -1,7 +1,9 @@
 services:
   portainer:
-    container_name: portainer
     image: portainer/portainer-ce:2.13.1-alpine
+    command:
+      --sslcert /certs/linode1.risk-bee.ts.net.crt
+      --sslkey /certs/linode1.risk-bee.ts.net.key
     volumes:
       - /etc/pki/tls/certs/linode1.risk-bee.ts.net.crt:/certs/linode1.risk-bee.ts.net.crt
       - /etc/pki/tls/certs/linode1.risk-bee.ts.net.key:/certs/linode1.risk-bee.ts.net.key
