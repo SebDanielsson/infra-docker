@@ -25,7 +25,7 @@ services:
       - db
       - events_db
     env_file:
-      - /docker/data/secrets/plausible/plausible.env
+      - /docker/secrets/plausible/plausible.env
     labels:
       - traefik.enable=true
       - traefik.http.routers.plausible.rule=Host(`plausible.hogwarts.zone`)
