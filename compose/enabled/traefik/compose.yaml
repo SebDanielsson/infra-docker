@@ -45,4 +45,4 @@ services:
           - traefik.http.services.dashboard.loadbalancer.server.port=8080
           - traefik.http.routers.dashboard.tls.certresolver=letsencrypt
           - traefik.http.routers.dashboard.middlewares=secHeaders@file, private-ipwhitelist
-          - traefik.http.middlewares.private-ipwhitelist.ipwhitelist.sourcerange=127.0.0.1/32 #, 100.0.0.0/8
+          - traefik.http.middlewares.private-ipwhitelist.ipwhitelist.sourcerange=127.0.0.1/32, 100.0.0.0/8
