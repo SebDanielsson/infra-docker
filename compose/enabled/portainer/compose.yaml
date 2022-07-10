@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ce:2.14.0-alpine
+    image: portainer/portainer-ce:2.14.1-alpine
     command:
       --sslcert /certs/linode1.risk-bee.ts.net.crt
       --sslkey /certs/linode1.risk-bee.ts.net.key
